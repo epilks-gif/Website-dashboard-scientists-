@@ -19,6 +19,14 @@ jobs:
     steps:
       - name: Check out site
         uses: actions/checkout@v4
+      - name: Create iPad home screen icon
+        run: |
+          python -m pip install --quiet cairosvg
+          python - <<'PY'
+          import cairosvg
+          cairosvg.svg2png(url="draco-icon.svg", write_to="apple-touch-icon.png", output_width=180, output_height=180)
+          cairosvg.svg2png(url="draco-icon.svg", write_to="draco-icon-512.png", output_width=512, output_height=512)
+          PY
       - name: Set up Pages
         uses: actions/configure-pages@v5
       - name: Upload site
